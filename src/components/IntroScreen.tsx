@@ -149,30 +149,17 @@ export default function IntroScreen({ onEnter }: IntroScreenProps) {
           for Nazish. 🌸
         </motion.h1>
 
-        {/* Shimmering Button with Generous Guaranteed Padding */}
+        {/* Responsive Shimmering Button */}
         <motion.button
           id="open-surprise-btn"
           onClick={handleClick}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
-          className="relative overflow-hidden cursor-pointer select-none"
+          className="btn-intro relative overflow-hidden select-none"
           style={{
-            background: 'linear-gradient(135deg, #f55d84 0%, #e06886 50%, #b85072 100%)',
-            padding: '1.2rem 3rem',
-            borderRadius: '9999px',
-            border: 'none',
-            color: '#ffffff',
-            fontFamily: "'DM Sans', system-ui, sans-serif",
-            fontSize: '1.15rem',
-            fontWeight: 500,
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            whiteSpace: 'nowrap',
             boxShadow: hovered
               ? '0 10px 42px rgba(220,60,105,0.65), 0 0 60px rgba(245,93,132,0.3)'
-              : '0 6px 28px rgba(220,60,105,0.45)',
-            transition: 'box-shadow 0.3s ease, transform 0.2s ease',
+              : undefined,
           }}
           initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}

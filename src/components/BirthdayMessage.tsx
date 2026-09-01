@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 interface BirthdayMessageProps {
-  visible: boolean;
+  visible?: boolean;
 }
 
 const MESSAGE_LINES = [
@@ -40,14 +40,15 @@ function TypewriterLine({
     if (text === '') {
       const emptyTimer = setTimeout(() => {
         onFinished?.();
-      }, delay + 100);
+      }, delay + 150);
       return () => clearTimeout(emptyTimer);
     }
 
     const startTimer = setTimeout(() => {
       setIsTyping(true);
       let index = 0;
-      const speed = text.length > 60 ? 20 : 25;
+      // Gentle, readable typing speed (~40ms per char)
+      const speed = text.length > 60 ? 36 : 42;
       const interval = setInterval(() => {
         if (index < text.length) {
           setDisplayed(text.slice(0, index + 1));
@@ -86,15 +87,15 @@ export default function BirthdayMessage({ visible: _visible }: BirthdayMessagePr
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.25 });
 
-  // Calculate delays relative to view entrance
+  // Calculate cumulative delays for each line matching the slowed speed
   const delays: number[] = [];
   let cumulative = 0;
   MESSAGE_LINES.forEach((line) => {
     delays.push(cumulative);
     if (line === '') {
-      cumulative += 250;
+      cumulative += 400;
     } else {
-      cumulative += line.length * 24 + 350;
+      cumulative += line.length * 40 + 600;
     }
   });
 
@@ -193,7 +194,7 @@ export default function BirthdayMessage({ visible: _visible }: BirthdayMessagePr
             <div className="h-px flex-1" style={{ background: 'linear-gradient(90deg, rgba(232,180,200,0.6), transparent)' }} />
           </motion.div>
 
-          {/* Message Text – Typed Only After In View */}
+          {/* Message Text – Typed with 750ms start delay and gentle smooth speed */}
           <div
             className="font-body text-base sm:text-lg leading-relaxed text-center sm:text-left"
             style={{ color: '#6d4554', lineHeight: '2' }}
@@ -203,7 +204,7 @@ export default function BirthdayMessage({ visible: _visible }: BirthdayMessagePr
                 key={i}
                 text={line}
                 startTyping={isInView}
-                delay={delays[i] + 600}
+                delay={delays[i] + 750}
               />
             ))}
           </div>

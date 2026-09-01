@@ -162,3 +162,31 @@ body {
 .btn-primary:active {
   transform: scale(0.98);
 }
+
+.btn-intro {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f55d84 0%, #e06886 50%, #b85072 100%);
+  color: #ffffff;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(220, 60, 105, 0.45);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  user-select: none;
+  white-space: nowrap;
+  max-width: 90vw;
+}
+
+@media (min-width: 640px) {
+  .btn-intro {
+    font-size: 1.15rem;
+    padding: 1.15rem 2.85rem;
+    box-shadow: 0 6px 28px rgba(220, 60, 105, 0.45);
+  }
+}
